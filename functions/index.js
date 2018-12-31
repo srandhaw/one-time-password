@@ -1,11 +1,12 @@
 const functions = require('firebase-functions');
 const createUser = require('./create_user.js')
 
-// // Create and Deploy Your First Cloud Functions
-// // https://firebase.google.com/docs/functions/write-firebase-functions
-//
-exports.helloWorld = functions.https.onRequest((request, response) => {
- response.send("Hello from Firebase!");
+const admin  = require('firebase-admin')
+const serviceAccount = require('./service_account.js')
+
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+  databaseURL: "https://one-time-password-d5eab.firebaseio.com"
 });
 
 exports.create_user = functions.https.onRequest(createUser)
